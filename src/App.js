@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Quote from "./components/quotes";
+import Dropdown from "./components/categoryDropDown";
 import "./App.css";
 
 class App extends Component {
@@ -7,22 +8,23 @@ class App extends Component {
         category: "dev"
     };
 
-    changeCategory = () => {
+    changeCategory = e => {
+        const selectedCategory = e.target.value;
+        console.log(selectedCategory);
         this.setState({
-            category: "sport"
+            category: selectedCategory
         });
     };
-
-    // Move Change Category into it's own component and make it a drop down menu (<select> element )
 
     render() {
         const { category } = this.state;
         return (
             <div className="App">
                 <Quote category={category} />
-                <button onClick={() => this.changeCategory()}>
-                    Change Category
-                </button>
+
+                <Dropdown 
+                  onClick = {e => this.changeCategory(e)}
+                />
             </div>
         );
     }
