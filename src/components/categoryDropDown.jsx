@@ -1,16 +1,24 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
+import { loadData } from "../utils/loadData";
 // import { loadData } from "../utils/loadData";
 
-class DropDown extends Component {
+class DropDown extends PureComponent {
     
     state = {
-        category: null
-    };
-    
-    
+        categories: []
+    }
+
+    async componentDidMount() {
+        const response = await fetch(`https://api.chucknorris.io/jokes/categories`)
+        const json = await response.json();
+        this.setState({ categories: json });
+      }
+
     render() {
+
         return (
             <>
+
                 <label htmlFor="category-select">Choose a category:</label>
 
                 <select
@@ -19,11 +27,9 @@ class DropDown extends Component {
                     onClick={this.props.onClick}
                 >
                     <option value="">--Please choose an option--</option>
-                    <option value="animal">Animal</option>
-                    <option value="career">Career</option>
-                    <option value="celebrity">Celebrity</option>
-                    <option value="dev">dev</option>
-                    <option value="explicit">explicit</option>
+                    {this.state.categories.map(el=> (
+                        <option>{el}</option>
+                    ))}
                 </select>
             </>
         );
