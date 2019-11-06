@@ -17,7 +17,7 @@ class Quote extends Component {
     }
 
     getQuote = async () => {
-        const { category } = this.props
+        const { category } = this.props;
         const data = await loadData(
             `https://api.chucknorris.io/jokes/random?category=${category}`
         );
@@ -30,8 +30,8 @@ class Quote extends Component {
 
     handleClick = () => {
         this.getQuote();
-    }
-    
+    };
+
     render() {
         const { quote } = this.state;
         const { category } = this.props;
